@@ -1,159 +1,79 @@
 @font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-BlackItalic.ttf") format("truetype");
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Bold.ttf") format("truetype");
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-BoldItalic.ttf") format("truetype");
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-BoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-ExtraBold.ttf") format("truetype");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-ExtraBoldItalic.ttf") format("truetype");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-ExtraLight.ttf") format("truetype");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-ExtraLightItalic.ttf") format("truetype");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Italic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-MediumItalic.ttf") format("truetype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-SemiBoldItalic.ttf") format("truetype");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-SemiLight.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-SemiLightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-Thin.ttf") format("truetype");
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Hairline.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Stratos";
-  src: url("/fonts/stratos/Stratos-ThinItalic.ttf") format("truetype");
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-HairlineItalic.ttf") format("truetype");
   font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-Thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rader";
+  src: url("/fonts/rader/PPRader-ThinItalic.ttf") format("truetype");
+  font-weight: 200;
   font-style: italic;
   font-display: swap;
 }

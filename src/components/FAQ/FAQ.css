@@ -40,7 +40,7 @@
 .faq-question h3 {
   margin: 0;
   font-size: 1.25rem;
-  letter-spacing: -0.04em;
+  letter-spacing: 0em;
   line-height: 1.5rem;
   user-select: none;
 }
