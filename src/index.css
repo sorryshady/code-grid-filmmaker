@@ -2,7 +2,8 @@
 
 :root {
   --bg: #e3e3db;
-  --fg: #000;
+  --fg: #0f0f0f;
+  --bg-depth-200: #d7d7d0;
 }
 
 * {
@@ -44,6 +45,12 @@ h3 {
   font-weight: 600;
   letter-spacing: -0.06em;
   line-height: 3.4vw;
+}
+
+h3 span {
+  position: relative;
+  top: -0.28vw;
+  font-family: "Messina Sans Mono";
 }
 
 h4 {
@@ -103,10 +110,34 @@ a {
   -webkit-font-smoothing: antialiased;
 }
 
-h3 span {
-  position: relative;
-  top: -0.28vw;
-  font-family: "Messina Sans Mono";
+button {
+  outline: none;
+  border: none;
+}
+
+input,
+textarea,
+input:active,
+input:focus,
+textarea:active,
+textarea:focus {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 1em;
+  font-family: "Messina Sans";
+  font-size: 1rem;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 0.5rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: "Messina Sans";
+  font-size: 1rem;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (max-width: 1000px) {
