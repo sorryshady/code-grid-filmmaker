@@ -17,7 +17,7 @@
 
 .contact-form input,
 .contact-form textarea {
-  background-color: #1f1f1f;
+  background-color: var(--fg200);
 }
 
 .contact-form .btn {

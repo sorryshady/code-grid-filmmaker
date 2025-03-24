@@ -3,7 +3,7 @@
 :root {
   --bg: #e3e3db;
   --fg: #0f0f0f;
-  --bg-depth-200: #d7d7d0;
+  --fg200: #1f1f1f;
 }
 
 * {
