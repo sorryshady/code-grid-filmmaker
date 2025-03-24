@@ -67,6 +67,10 @@
 }
 
 @media (max-width: 1000px) {
+  .faq {
+    padding: 1.25em;
+  }
+
   .faq-wrapper.contained {
     width: 100%;
   }
