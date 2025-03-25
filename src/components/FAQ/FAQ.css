@@ -1,4 +1,4 @@
-.faq {
+.faq-container {
   width: 100%;
   padding: 2em;
 }
@@ -67,7 +67,7 @@
 }
 
 @media (max-width: 1000px) {
-  .faq {
+  .faq-container {
     padding: 1.25em;
   }
 

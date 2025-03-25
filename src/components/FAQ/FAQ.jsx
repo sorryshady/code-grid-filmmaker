@@ -57,7 +57,7 @@ const FAQ = ({ title = true, fullWidth = false }) => {
   };
 
   return (
-    <div className="faq">
+    <div className="faq-container">
       <div className={`faq-wrapper ${fullWidth ? "full-width" : "contained"}`}>
         {title && (
           <div className="faq-title">
