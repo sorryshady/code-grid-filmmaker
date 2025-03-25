@@ -1,4 +1,4 @@
-export const faq = [
+export const faqItems = [
   {
     question: "What types of films do you specialize in?",
     answer:

@@ -1,19 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./FAQ.css";
+import "./FAQContainer.css";
 
-import { faq } from "./faqs.js";
+import { faqItems } from "./faqs.js";
 
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
-const FAQ = ({ title = true, fullWidth = false }) => {
+const FAQContainer = ({ title = true, fullWidth = false }) => {
   const [activeIndices, setActiveIndices] = useState([]);
   const iconRefs = useRef([]);
   const contentRefs = useRef([]);
 
   useEffect(() => {
-    iconRefs.current = iconRefs.current.slice(0, faq.length);
-    contentRefs.current = contentRefs.current.slice(0, faq.length);
+    iconRefs.current = iconRefs.current.slice(0, faqItems.length);
+    contentRefs.current = contentRefs.current.slice(0, faqItems.length);
   }, []);
 
   const toggleFAQ = (index) => {
@@ -68,7 +68,7 @@ const FAQ = ({ title = true, fullWidth = false }) => {
         )}
 
         <div className="faq-items">
-          {faq.map((item, index) => (
+          {faqItems.map((item, index) => (
             <div key={index} className="faq-item">
               <div className="faq-question" onClick={() => toggleFAQ(index)}>
                 <h3>{item.question}</h3>
@@ -94,4 +94,4 @@ const FAQ = ({ title = true, fullWidth = false }) => {
   );
 };
 
-export default FAQ;
+export default FAQContainer;

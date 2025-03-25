@@ -1,14 +1,14 @@
 import React from "react";
 import "./Home.css";
 
-import FAQ from "../../components/FAQ/FAQ";
+import FAQContainer from "../../components/FAQContainer/FAQContainer";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   return (
     <div className="page home">
-      <FAQ title={true} fullWidth={false} />
+      <FAQContainer title={true} fullWidth={false} />
       <ContactForm />
       <Footer />
     </div>
