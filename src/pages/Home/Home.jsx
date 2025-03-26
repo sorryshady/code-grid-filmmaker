@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
+import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
 import Reviews from "../../components/Reviews/Reviews";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
@@ -139,8 +140,12 @@ const Home = () => {
           </div>
 
           <div className="hero-header">
-            <h1>Nico</h1>
-            <h1>Palmer</h1>
+            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.5}>
+              Nico
+            </AnimatedCopy>
+            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.6}>
+              Palmer
+            </AnimatedCopy>
           </div>
         </section>
 
@@ -165,7 +170,9 @@ const Home = () => {
         </section>
 
         <section ref={stickyWorkHeaderRef} className="sticky-work-header">
-          <h1>Palmer selects</h1>
+          <AnimatedCopy tag="h1" animateOnScroll="true">
+            Palmer selects
+          </AnimatedCopy>
         </section>
 
         <section ref={homeWorkRef} className="home-work">
@@ -194,16 +201,24 @@ const Home = () => {
 
         <section className="hobbies">
           <div className="hobby">
-            <h4>Camera</h4>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Camera
+            </AnimatedCopy>
           </div>
           <div className="hobby">
-            <h4>Editing</h4>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Editing
+            </AnimatedCopy>
           </div>
           <div className="hobby">
-            <h4>Story</h4>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Story
+            </AnimatedCopy>
           </div>
           <div className="hobby">
-            <h4>Sound</h4>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Sound
+            </AnimatedCopy>
           </div>
         </section>
 

@@ -1,8 +1,7 @@
+import { faqItems } from "./faqs.js";
 import React, { useState, useRef, useEffect } from "react";
 import "./FAQContainer.css";
-
-import { faqItems } from "./faqs.js";
-
+import AnimatedCopy from "../AnimatedCopy/AnimatedCopy.jsx";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
@@ -10,10 +9,28 @@ const FAQContainer = ({ title = true, fullWidth = false }) => {
   const [activeIndices, setActiveIndices] = useState([]);
   const iconRefs = useRef([]);
   const contentRefs = useRef([]);
+  const faqItemsRef = useRef([]);
 
   useEffect(() => {
     iconRefs.current = iconRefs.current.slice(0, faqItems.length);
     contentRefs.current = contentRefs.current.slice(0, faqItems.length);
+    faqItemsRef.current = faqItemsRef.current.slice(0, faqItems.length);
+
+    gsap.fromTo(
+      faqItemsRef.current,
+      {
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1,
+        delay: 0.25,
+      }
+    );
   }, []);
 
   const toggleFAQ = (index) => {
@@ -61,15 +78,19 @@ const FAQContainer = ({ title = true, fullWidth = false }) => {
       <div className={`faq-wrapper ${fullWidth ? "full-width" : "contained"}`}>
         {title && (
           <div className="faq-title">
-            <h2>
+            <AnimatedCopy tag="h2" animateOnScroll={false}>
               Frequently <br /> Asked Questions
-            </h2>
+            </AnimatedCopy>
           </div>
         )}
 
         <div className="faq-items">
           {faqItems.map((item, index) => (
-            <div key={index} className="faq-item">
+            <div
+              key={index}
+              className="faq-item"
+              ref={(el) => (faqItemsRef.current[index] = el)}
+            >
               <div className="faq-question" onClick={() => toggleFAQ(index)}>
                 <h3>{item.question}</h3>
                 <span

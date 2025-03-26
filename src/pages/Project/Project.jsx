@@ -1,6 +1,9 @@
 import React from "react";
 import "./Project.css";
 
+import ParallaxImage from "../../components/ParallaxImage/ParallaxImage";
+import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
+
 import ReactLenis from "lenis/react";
 
 const Project = () => {
@@ -8,105 +11,171 @@ const Project = () => {
     <ReactLenis root>
       <div className="page project">
         <section className="project-header">
-          <p className="primary sm">Short film on self-discovery</p>
-          <h2>Fragments of Light</h2>
+          <AnimatedCopy
+            delay={1}
+            animateOnScroll={false}
+            className="primary sm"
+          >
+            Short film on self-discovery
+          </AnimatedCopy>
+          <AnimatedCopy tag="h2" delay={1}>
+            Fragments of Light
+          </AnimatedCopy>
         </section>
 
         <section className="project-banner-img">
-          <img src="/project/project-1.jpg" alt="" />
+          <div className="project-banner-img-wrapper">
+            <ParallaxImage src="/project/banner.jpg" alt="" />
+          </div>
         </section>
 
         <section className="project-details">
           <div className="details">
-            <p className="primary sm">Overview</p>
-            <h4>
-              LumLens partnered with VisionTech Global to address eye strain
-              issues for corporate professionals caused by prolonged screen
-              exposure.
-            </h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Overview
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              A visual meditation on identity, *Fragments of Light* explores the
+              quiet journey of self-discovery through minimalism, mood, and
+              motion.
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Year</p>
-            <h4>2010</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Year
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              2024
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Category</p>
-            <h4>Documentary</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Category
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Short Film
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Running Time</p>
-            <h4>1:00</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Running Time
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              6:30
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Client</p>
-            <h4>VisionTech Global</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Directed by
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Nico Palmer
+            </AnimatedCopy>
           </div>
         </section>
 
         <section className="project-images">
           <div className="project-images-container">
             <div className="project-img">
-              <img src="/project/project-1.jpg" alt="" />
+              <div className="project-img-wrapper">
+                <ParallaxImage src="/project/project-1.jpg" alt="" />
+              </div>
             </div>
 
             <div className="project-img">
-              <img src="/project/project-2.jpg" alt="" />
+              <div className="project-img-wrapper">
+                <ParallaxImage src="/project/project-2.jpg" alt="" />
+              </div>
             </div>
 
             <div className="project-img">
-              <img src="/project/project-3.jpg" alt="" />
+              <div className="project-img-wrapper">
+                <ParallaxImage src="/project/project-3.jpg" alt="" />
+              </div>
             </div>
 
             <div className="project-img">
-              <img src="/project/project-4.jpg" alt="" />
+              <div className="project-img-wrapper">
+                <ParallaxImage src="/project/project-4.jpg" alt="" />
+              </div>
             </div>
 
             <div className="project-img">
-              <img src="/project/project-5.jpg" alt="" />
+              <div className="project-img-wrapper">
+                <ParallaxImage src="/project/project-5.jpg" alt="" />
+              </div>
             </div>
           </div>
         </section>
 
         <section className="project-details">
           <div className="details">
-            <p className="primary sm">Editor</p>
-            <h4>Editor Name</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Editor
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Nico Palmer
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Sound Design</p>
-            <h4>Sound Designer Name</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Sound Design
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Elena Brooks
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Art Director</p>
-            <h4>Art Director Name</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Art Director
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Milo Vance
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Producer</p>
-            <h4>Producer Name</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Producer
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Asha Lennox
+            </AnimatedCopy>
           </div>
 
           <div className="details">
-            <p className="primary sm">Director</p>
-            <h4>Director Name</h4>
+            <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+              Director
+            </AnimatedCopy>
+            <AnimatedCopy tag="h4" animateOnScroll={true}>
+              Nico Palmer
+            </AnimatedCopy>
           </div>
         </section>
 
         <section className="next-project">
-          <p className="primary sm">02 - 05</p>
-          <h3>Next</h3>
+          <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
+            02 - 05
+          </AnimatedCopy>
+          <AnimatedCopy tag="h3" animateOnScroll={true}>
+            Next
+          </AnimatedCopy>
 
           <div className="next-project-img">
-            <img src="/project/project-2.jpg" alt="" />
+            <div className="next-project-img-wrapper">
+              <ParallaxImage src="/work/work-2.jpg" alt="" />
+            </div>
           </div>
 
-          <h4>Market Pulse</h4>
+          <AnimatedCopy tag="h4" animateOnScroll={true}>
+            Market Pulse
+          </AnimatedCopy>
         </section>
       </div>
     </ReactLenis>
