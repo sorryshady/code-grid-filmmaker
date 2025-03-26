@@ -1,122 +1,204 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Home.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import workList from "../../data/workList";
+
+import Reviews from "../../components/Reviews/Reviews";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
 
+import ReactLenis from "lenis/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Home = () => {
+  const workItems = Array.isArray(workList) ? workList : [];
+  const stickyTitlesRef = useRef(null);
+  const titlesRef = useRef([]);
+  const stickyWorkHeaderRef = useRef(null);
+  const homeWorkRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const stickySection = stickyTitlesRef.current;
+    const titles = titlesRef.current.filter(Boolean);
+
+    if (!stickySection || titles.length !== 3) {
+      window.removeEventListener("resize", handleResize);
+      return;
+    }
+
+    gsap.set(titles[0], { opacity: 1, scale: 1 });
+    gsap.set(titles[1], { opacity: 0, scale: 0.75 });
+    gsap.set(titles[2], { opacity: 0, scale: 0.75 });
+
+    const pinTrigger = ScrollTrigger.create({
+      trigger: stickySection,
+      start: "top top",
+      end: `+=${window.innerHeight * 5}`,
+      pin: true,
+      pinSpacing: true,
+    });
+
+    const masterTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: stickySection,
+        start: "top top",
+        end: `+=${window.innerHeight * 4}`,
+        scrub: 0.5,
+      },
+    });
+
+    masterTimeline
+      .to(
+        titles[0],
+        {
+          opacity: 0,
+          scale: 0.75,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        1
+      )
+
+      .to(
+        titles[1],
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.in",
+        },
+        1.25
+      );
+
+    masterTimeline
+      .to(
+        titles[1],
+        {
+          opacity: 0,
+          scale: 0.75,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        2.5
+      )
+
+      .to(
+        titles[2],
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.in",
+        },
+        2.75
+      );
+
+    const workHeaderSection = stickyWorkHeaderRef.current;
+    const homeWorkSection = homeWorkRef.current;
+
+    let workHeaderPinTrigger;
+    if (workHeaderSection && homeWorkSection) {
+      workHeaderPinTrigger = ScrollTrigger.create({
+        trigger: workHeaderSection,
+        start: "top top",
+        endTrigger: homeWorkSection,
+        end: "bottom bottom",
+        pin: true,
+        pinSpacing: false,
+      });
+    }
+
+    return () => {
+      pinTrigger.kill();
+      if (workHeaderPinTrigger) {
+        workHeaderPinTrigger.kill();
+      }
+      if (masterTimeline.scrollTrigger) {
+        masterTimeline.scrollTrigger.kill();
+      }
+      masterTimeline.kill();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="page home">
-      <section className="hero">
-        <div className="hero-img">
-          <img src="/home/hero.jpg" alt="" />
-        </div>
-
-        <div className="hero-header">
-          <h1>Nico</h1>
-          <h1>Palmer</h1>
-        </div>
-      </section>
-
-      <section className="sticky-titles">
-        <h2>Lumlens is a creative video agency based in London.</h2>
-
-        {/* <h2>It creates lasting brand-customer connections.</h2>
-
-        <h2>We achieve this through technology, and design.</h2> */}
-      </section>
-
-      <section className="sticky-work-header">
-        <h1>Palmer selects</h1>
-      </section>
-
-      <section className="home-work">
-        <div className="home-work-list">
-          <div className="work-item">
-            <p className="primary sm">01 - 05</p>
-            <h3>Fragments of Light</h3>
-            <div className="work-item-img">
-              <img src="/work/work-1.jpg" alt="" />
-            </div>
-            <h4>Documentary</h4>
+    <ReactLenis root>
+      <div className="page home">
+        <section className="hero">
+          <div className="hero-img">
+            <img src="/home/hero.jpg" alt="" />
           </div>
 
-          <div className="work-item">
-            <p className="primary sm">02 - 05</p>
-            <h3>Market Pulse</h3>
-            <div className="work-item-img">
-              <img src="/work/work-2.jpg" alt="" />
-            </div>
-            <h4>Documentary</h4>
+          <div className="hero-header">
+            <h1>Nico</h1>
+            <h1>Palmer</h1>
           </div>
+        </section>
 
-          <div className="work-item">
-            <p className="primary sm">03 - 05</p>
-            <h3>The Stillness Project</h3>
-            <div className="work-item-img">
-              <img src="/work/work-3.jpg" alt="" />
-            </div>
-            <h4>Documentary</h4>
-          </div>
+        <section ref={stickyTitlesRef} className="sticky-titles">
+          <h2 ref={(el) => (titlesRef.current[0] = el)}>
+            I craft films that tell human stories with cinematic depth.
+          </h2>
+          <h2 ref={(el) => (titlesRef.current[1] = el)}>
+            Each project is driven by emotion, clarity, and vision.
+          </h2>
+          <h2 ref={(el) => (titlesRef.current[2] = el)}>
+            This portfolio is a glimpse into the frames that move me.
+          </h2>
+        </section>
 
-          <div className="work-item">
-            <p className="primary sm">04 - 05</p>
-            <h3>Chroma/City</h3>
-            <div className="work-item-img">
-              <img src="/work/work-4.jpg" alt="" />
-            </div>
-            <h4>Documentary</h4>
-          </div>
+        <section ref={stickyWorkHeaderRef} className="sticky-work-header">
+          <h1>Palmer selects</h1>
+        </section>
 
-          <div className="work-item">
-            <p className="primary sm">05 - 05</p>
-            <h3>Echoes of Silence</h3>
-            <div className="work-item-img">
-              <img src="/work/work-5.jpg" alt="" />
-            </div>
-            <h4>Documentary</h4>
+        <section ref={homeWorkRef} className="home-work">
+          <div className="home-work-list">
+            {workItems.map((work, index) => (
+              <div key={work.id} className="home-work-item">
+                <p className="primary sm">{`${String(index + 1).padStart(
+                  2,
+                  "0"
+                )} - ${String(workItems.length).padStart(2, "0")}`}</p>
+                <h3>{work.title}</h3>
+                <div className="work-item-img">
+                  <img src={work.image} alt={work.title} />
+                </div>
+                <h4>{work.category}</h4>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="reviews">
-        <h3>"</h3>
-        <h4 id="review-copy">
-          Lumlens exceeded our expectations with a stunning video, great
-          attention to detail, and seamless communication.
-        </h4>
-        <h4 id="review-author">- Paul Shaw</h4>
+        <Reviews />
 
-        <div className="reviews-list">
-          <div className="review-thumbnail active">
-            <img src="/work/work-1.jpg" alt="" />
+        <section className="hobbies">
+          <div className="hobby">
+            <h4>Camera</h4>
           </div>
-          <div className="review-thumbnail">
-            <img src="/work/work-2.jpg" alt="" />
+          <div className="hobby">
+            <h4>Editing</h4>
           </div>
-          <div className="review-thumbnail">
-            <img src="/work/work-3.jpg" alt="" />
+          <div className="hobby">
+            <h4>Story</h4>
           </div>
-        </div>
-      </section>
+          <div className="hobby">
+            <h4>Sound</h4>
+          </div>
+        </section>
 
-      <section className="hobbies">
-        <div className="hobby">
-          <h4>Cinematography</h4>
-        </div>
-        <div className="hobby">
-          <h4>Cinematography</h4>
-        </div>
-        <div className="hobby">
-          <h4>Cinematography</h4>
-        </div>
-        <div className="hobby">
-          <h4>Cinematography</h4>
-        </div>
-      </section>
-      <ContactForm />
-      <Footer />
-    </div>
+        <ContactForm />
+        <Footer />
+      </div>
+    </ReactLenis>
   );
 };
 
