@@ -3,6 +3,7 @@
   width: 100vw;
   height: 100svh;
   overflow: hidden;
+  background-color: var(--fg);
 }
 
 .work-slider-img {
@@ -50,8 +51,22 @@
   padding: 1.25em;
 }
 
-.carousel-info p,
-.carousel-info h1 {
+.carousel-description,
+.carousel-title {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  width: 100%;
+}
+
+.carousel-title h1 {
+  line-height: 1;
+}
+
+.carousel-title h1,
+.carousel-description p {
+  position: relative;
+  display: block;
+  will-change: transform;
   color: var(--bg);
   text-align: center;
 }
