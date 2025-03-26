@@ -9,17 +9,17 @@ const Footer = () => {
       <div className="footer-row">
         <div className="footer-contact">
           <h3>
-            Stay Connected <br />
-            hello<span>@</span>nicopalmer.com
+            Let’s Collaborate <br />
+            film<span>@</span>nicopalmer.com
           </h3>
 
           <p className="secondary">
-            Crafted with creativity and passion. Let’s stay connected reach out
-            anytime!
+            From short films to full productions — I’m always open to creative
+            collaborations. Feel free to reach out anytime.
           </p>
 
           <Link to="/contact" className="btn">
-            Contact Now
+            Get in Touch
           </Link>
         </div>
 

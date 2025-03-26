@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import "./Home.css";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import workList from "../../data/workList";
+import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import "./Home.css";
 
 import Reviews from "../../components/Reviews/Reviews";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReactLenis from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -145,6 +145,14 @@ const Home = () => {
         </section>
 
         <section ref={stickyTitlesRef} className="sticky-titles">
+          <div className="sticky-titles-nav">
+            <p className="primary sm">About Me</p>
+            <p className="primary sm">Let’s Connect</p>
+          </div>
+          <div className="sticky-titles-footer">
+            <p className="primary sm">Storytelling Through Film</p>
+            <p className="primary sm">Open to Collaborations</p>
+          </div>
           <h2 ref={(el) => (titlesRef.current[0] = el)}>
             I craft films that tell human stories with cinematic depth.
           </h2>
@@ -163,7 +171,11 @@ const Home = () => {
         <section ref={homeWorkRef} className="home-work">
           <div className="home-work-list">
             {workItems.map((work, index) => (
-              <div key={work.id} className="home-work-item">
+              <Link
+                to="/sample-project"
+                key={work.id}
+                className="home-work-item"
+              >
                 <p className="primary sm">{`${String(index + 1).padStart(
                   2,
                   "0"
@@ -173,7 +185,7 @@ const Home = () => {
                   <img src={work.image} alt={work.title} />
                 </div>
                 <h4>{work.category}</h4>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

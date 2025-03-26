@@ -6,10 +6,10 @@ const ContactForm = () => {
     <div className="contact-form">
       <div className="contact-form-row">
         <div className="contact-form-row-copy-item">
-          <p className="primary sm">Let's work together</p>
+          <p className="primary sm">Let’s create together</p>
         </div>
         <div className="contact-form-row-copy-item">
-          <p className="primary sm">(CQ — 07)</p>
+          <p className="primary sm">(Scene — 07)</p>
         </div>
         <div className="contact-form-row-copy-item">
           <p className="primary sm">&copy; 2025</p>
@@ -19,18 +19,17 @@ const ContactForm = () => {
       <div className="contact-form-row">
         <div className="contact-form-col">
           <div className="contact-form-header">
-            <h3>Contact Me</h3>
+            <h3>Start a Conversation</h3>
 
             <p>
-              Let’s create something amazing together! Reach out I’d love to
-              hear about your project and ideas.
+              Have a story in mind? Let’s bring it to life. I’d love to hear
+              what you’re working on and explore how we can collaborate.
             </p>
           </div>
 
           <div className="contact-form-availability">
-            <p className="primary sm">24/7 Full Time Support</p>
-
-            <p className="primary sm">Available Worldwide</p>
+            <p className="primary sm">Available for Freelance</p>
+            <p className="primary sm">Clients worldwide</p>
           </div>
         </div>
 
@@ -48,7 +47,7 @@ const ContactForm = () => {
           </div>
 
           <div className="form-item">
-            <button className="btn">Send</button>
+            <button className="btn">Send Message</button>
           </div>
         </div>
       </div>
