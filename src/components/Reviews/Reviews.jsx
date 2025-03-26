@@ -12,7 +12,40 @@ const Reviews = () => {
   const reviewsContainerRef = useRef(null);
   const initialRenderRef = useRef(true);
   const animationInProgressRef = useRef(false);
-  const hasInitialClickRef = useRef(false);
+  const hasInitialSplitRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasInitialSplitRef.current && reviewsContainerRef.current) {
+      const initialReviewCopy =
+        reviewsContainerRef.current.querySelector("#review-copy");
+      const initialReviewAuthor =
+        reviewsContainerRef.current.querySelector("#review-author");
+
+      if (initialReviewCopy && initialReviewAuthor) {
+        new SplitType(initialReviewCopy, {
+          types: "lines",
+          lineClass: "line",
+        });
+
+        new SplitType(initialReviewAuthor, {
+          types: "lines",
+          lineClass: "line",
+        });
+
+        initialReviewCopy.querySelectorAll(".line").forEach((line) => {
+          const content = line.innerHTML;
+          line.innerHTML = `<span>${content}</span>`;
+        });
+
+        initialReviewAuthor.querySelectorAll(".line").forEach((line) => {
+          const content = line.innerHTML;
+          line.innerHTML = `<span>${content}</span>`;
+        });
+
+        hasInitialSplitRef.current = true;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (initialRenderRef.current) {
@@ -23,38 +56,9 @@ const Reviews = () => {
     if (animationInProgressRef.current) return;
     animationInProgressRef.current = true;
 
-    const currentReviewItems = document.querySelectorAll(".review-item");
+    const currentReviewItems =
+      reviewsContainerRef.current.querySelectorAll(".review-item");
     if (currentReviewItems.length > 0) {
-      if (!hasInitialClickRef.current) {
-        hasInitialClickRef.current = true;
-        const initialReviewCopy =
-          currentReviewItems[0].querySelector("#review-copy");
-        const initialReviewAuthor =
-          currentReviewItems[0].querySelector("#review-author");
-
-        if (initialReviewCopy && initialReviewAuthor) {
-          new SplitType(initialReviewCopy, {
-            types: "lines",
-            lineClass: "line",
-          });
-
-          new SplitType(initialReviewAuthor, {
-            types: "lines",
-            lineClass: "line",
-          });
-
-          initialReviewCopy.querySelectorAll(".line").forEach((line) => {
-            const content = line.innerHTML;
-            line.innerHTML = `<span>${content}</span>`;
-          });
-
-          initialReviewAuthor.querySelectorAll(".line").forEach((line) => {
-            const content = line.innerHTML;
-            line.innerHTML = `<span>${content}</span>`;
-          });
-        }
-      }
-
       const currentReview = currentReviewItems[currentReviewItems.length - 1];
       const lineSpans = currentReview.querySelectorAll(".line span");
 
@@ -63,9 +67,14 @@ const Reviews = () => {
         duration: 0.7,
         stagger: 0.05,
         ease: "power4.in",
+        onComplete: () => {
+          createNewReview();
+        },
       });
     }
+  }, [activeReview]);
 
+  const createNewReview = () => {
     const newReviewItem = document.createElement("div");
     newReviewItem.className = "review-item";
 
@@ -111,9 +120,9 @@ const Reviews = () => {
         duration: 0.7,
         stagger: 0.1,
         ease: "power4.out",
-        delay: 0.7,
         onComplete: () => {
-          const reviewItems = document.querySelectorAll(".review-item");
+          const reviewItems =
+            reviewsContainerRef.current.querySelectorAll(".review-item");
           if (reviewItems.length > 1) {
             for (let i = 0; i < reviewItems.length - 1; i++) {
               reviewItems[i].remove();
@@ -123,7 +132,7 @@ const Reviews = () => {
         },
       });
     }
-  }, [activeReview]);
+  };
 
   const handleReviewClick = (index) => {
     if (index !== activeReview && !animationInProgressRef.current) {
