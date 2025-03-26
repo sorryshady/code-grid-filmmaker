@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./Work.css";
 import projects from "../../data/projects";
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./Work.css";
+
 import { gsap } from "gsap";
 
 const Work = () => {
@@ -30,15 +32,20 @@ const Work = () => {
         ease: "power2.in",
         onComplete: () => {
           if (descriptionTextRef.current) descriptionTextRef.current.remove();
-          if (titleTextRef.current) titleTextRef.current.remove();
+          if (titleTextRef.current && titleTextRef.current.parentNode) {
+            titleTextRef.current.parentNode.remove();
+          }
           if (imageRef.current) imageRef.current.remove();
 
           const newDescriptionEl = document.createElement("p");
           newDescriptionEl.className = "primary sm";
           newDescriptionEl.textContent = newProject.description;
 
+          const newLinkEl = document.createElement("a");
+          newLinkEl.href = "/sample-project";
           const newTitleEl = document.createElement("h1");
           newTitleEl.textContent = newProject.title;
+          newLinkEl.appendChild(newTitleEl);
 
           const newImageEl = document.createElement("img");
           newImageEl.src = newProject.image;
@@ -49,7 +56,7 @@ const Work = () => {
           gsap.set(newImageEl, { opacity: 0 });
 
           carouselDescriptionRef.current.appendChild(newDescriptionEl);
-          carouselTitleRef.current.appendChild(newTitleEl);
+          carouselTitleRef.current.appendChild(newLinkEl);
           workSliderImgRef.current.appendChild(newImageEl);
 
           descriptionTextRef.current = newDescriptionEl;
@@ -126,7 +133,9 @@ const Work = () => {
             <p className="primary sm">{activeProject.description}</p>
           </div>
           <div className="carousel-title" ref={carouselTitleRef}>
-            <h1>{activeProject.title}</h1>
+            <Link to="/sample-project">
+              <h1>{activeProject.title}</h1>
+            </Link>
           </div>
         </div>
       </div>
