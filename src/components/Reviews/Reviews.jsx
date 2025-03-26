@@ -12,117 +12,119 @@ const Reviews = () => {
   const reviewsContainerRef = useRef(null);
   const initialRenderRef = useRef(true);
   const animationInProgressRef = useRef(false);
-  const hasInitialClickRef = useRef(false);
+  const isFirstClickRef = useRef(true);
 
+  // Setup on first render
   useEffect(() => {
+    if (reviewsContainerRef.current) {
+      // Get the initial review elements
+      const initialReviewItem =
+        reviewsContainerRef.current.querySelector(".review-item");
+      const initialReviewCopy = initialReviewItem.querySelector("#review-copy");
+      const initialReviewAuthor =
+        initialReviewItem.querySelector("#review-author");
+
+      // Apply split text to initial elements
+      if (initialReviewCopy && initialReviewAuthor) {
+        new SplitType(initialReviewCopy, { types: "lines", lineClass: "line" });
+        new SplitType(initialReviewAuthor, {
+          types: "lines",
+          lineClass: "line",
+        });
+
+        // Wrap content in spans
+        initialReviewCopy.querySelectorAll(".line").forEach((line) => {
+          line.innerHTML = `<span>${line.innerHTML}</span>`;
+        });
+
+        initialReviewAuthor.querySelectorAll(".line").forEach((line) => {
+          line.innerHTML = `<span>${line.innerHTML}</span>`;
+        });
+      }
+    }
+  }, []);
+
+  // Handle review changes
+  useEffect(() => {
+    // Skip on first render
     if (initialRenderRef.current) {
       initialRenderRef.current = false;
       return;
     }
 
+    // Prevent multiple animations from running simultaneously
     if (animationInProgressRef.current) return;
     animationInProgressRef.current = true;
 
-    const currentReviewItems = document.querySelectorAll(".review-item");
-    if (currentReviewItems.length > 0) {
-      if (!hasInitialClickRef.current) {
-        hasInitialClickRef.current = true;
-        const initialReviewCopy =
-          currentReviewItems[0].querySelector("#review-copy");
-        const initialReviewAuthor =
-          currentReviewItems[0].querySelector("#review-author");
+    const container = reviewsContainerRef.current;
+    if (!container) return;
 
-        if (initialReviewCopy && initialReviewAuthor) {
-          new SplitType(initialReviewCopy, {
-            types: "lines",
-            lineClass: "line",
-          });
-
-          new SplitType(initialReviewAuthor, {
-            types: "lines",
-            lineClass: "line",
-          });
-
-          initialReviewCopy.querySelectorAll(".line").forEach((line) => {
-            const content = line.innerHTML;
-            line.innerHTML = `<span>${content}</span>`;
-          });
-
-          initialReviewAuthor.querySelectorAll(".line").forEach((line) => {
-            const content = line.innerHTML;
-            line.innerHTML = `<span>${content}</span>`;
-          });
-        }
-      }
-
-      const currentReview = currentReviewItems[currentReviewItems.length - 1];
-      const lineSpans = currentReview.querySelectorAll(".line span");
-
-      gsap.to(lineSpans, {
-        yPercent: -110,
-        duration: 0.7,
-        stagger: 0.05,
-        ease: "power4.in",
-      });
+    // Get the current review item
+    const currentReviewItem = container.querySelector(".review-item");
+    if (!currentReviewItem) {
+      animationInProgressRef.current = false;
+      return;
     }
 
-    const newReviewItem = document.createElement("div");
-    newReviewItem.className = "review-item";
+    // Animate out the current review
+    const currentSpans = currentReviewItem.querySelectorAll(".line span");
+    gsap.to(currentSpans, {
+      yPercent: -110,
+      duration: 0.7,
+      stagger: 0.05,
+      ease: "power4.in",
+      onComplete: () => {
+        // When animation completes, create the new review
+        const newReviewItem = document.createElement("div");
+        newReviewItem.className = "review-item";
+        newReviewItem.innerHTML = `
+          <h4 id="review-copy">${reviews[activeReview].copy}</h4>
+          <h4 id="review-author">- ${reviews[activeReview].author}</h4>
+        `;
 
-    newReviewItem.innerHTML = `
-      <h4 id="review-copy">${reviews[activeReview].copy}</h4>
-      <h4 id="review-author">- ${reviews[activeReview].author}</h4>
-    `;
+        // Add new review to container
+        container.appendChild(newReviewItem);
 
-    if (reviewsContainerRef.current) {
-      reviewsContainerRef.current.appendChild(newReviewItem);
+        // Get new review elements
+        const newReviewCopy = newReviewItem.querySelector("#review-copy");
+        const newReviewAuthor = newReviewItem.querySelector("#review-author");
 
-      const newReviewCopy = newReviewItem.querySelector("#review-copy");
-      const newReviewAuthor = newReviewItem.querySelector("#review-author");
+        // Apply split text to new elements
+        new SplitType(newReviewCopy, { types: "lines", lineClass: "line" });
+        new SplitType(newReviewAuthor, { types: "lines", lineClass: "line" });
 
-      new SplitType(newReviewCopy, {
-        types: "lines",
-        lineClass: "line",
-      });
+        // Collect all line spans
+        const newLineSpans = [];
+        newReviewCopy.querySelectorAll(".line").forEach((line) => {
+          line.innerHTML = `<span>${line.innerHTML}</span>`;
+          newLineSpans.push(line.querySelector("span"));
+        });
+        newReviewAuthor.querySelectorAll(".line").forEach((line) => {
+          line.innerHTML = `<span>${line.innerHTML}</span>`;
+          newLineSpans.push(line.querySelector("span"));
+        });
 
-      new SplitType(newReviewAuthor, {
-        types: "lines",
-        lineClass: "line",
-      });
+        // Set initial position of new spans
+        gsap.set(newLineSpans, { yPercent: 110 });
 
-      const newLineSpans = [];
-
-      newReviewCopy.querySelectorAll(".line").forEach((line) => {
-        const content = line.innerHTML;
-        line.innerHTML = `<span>${content}</span>`;
-        newLineSpans.push(line.querySelector("span"));
-      });
-
-      newReviewAuthor.querySelectorAll(".line").forEach((line) => {
-        const content = line.innerHTML;
-        line.innerHTML = `<span>${content}</span>`;
-        newLineSpans.push(line.querySelector("span"));
-      });
-
-      gsap.set(newLineSpans, { yPercent: 110 });
-
-      gsap.to(newLineSpans, {
-        yPercent: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power4.out",
-        delay: 0.7,
-        onComplete: () => {
-          const reviewItems = document.querySelectorAll(".review-item");
-          if (reviewItems.length > 1) {
-            for (let i = 0; i < reviewItems.length - 1; i++) {
-              reviewItems[i].remove();
+        // Animate in the new review
+        gsap.to(newLineSpans, {
+          yPercent: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power4.out",
+          onComplete: () => {
+            // Remove old review items
+            const reviewItems = container.querySelectorAll(".review-item");
+            if (reviewItems.length > 1) {
+              currentReviewItem.remove();
             }
-          }
-          animationInProgressRef.current = false;
-        },
-      });
-    }
+            animationInProgressRef.current = false;
+            isFirstClickRef.current = false;
+          },
+        });
+      },
+    });
   }, [activeReview]);
 
   const handleReviewClick = (index) => {
