@@ -19,6 +19,10 @@ const Menu = () => {
   const menuLinksAnimation = useRef();
   const menuBarAnimation = useRef();
 
+  // Refs for scroll behavior
+  const lastScrollY = useRef(0);
+  const menuBarRef = useRef();
+
   const toggleMenu = () => {
     document.querySelector(".hamburger-icon").classList.toggle("active");
     setIsMenuOpen(!isMenuOpen);
@@ -69,9 +73,39 @@ const Menu = () => {
     }
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isMenuOpen) return;
+
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current) {
+        gsap.to(".menu-bar", {
+          y: -200,
+          duration: 1,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.to(".menu-bar", {
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+        });
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMenuOpen]);
+
   return (
     <div className="menu-container" ref={menuContainer}>
-      <div className="menu-bar">
+      <div className="menu-bar" ref={menuBarRef}>
         <div className="menu-bar-container">
           <div className="menu-logo" onClick={closeMenu}>
             <Link to="/">
@@ -79,11 +113,6 @@ const Menu = () => {
             </Link>
           </div>
           <div className="menu-actions">
-            <div className="contact-btn">
-              <Link className="btn" to="/contact">
-                Contact
-              </Link>
-            </div>
             <div className="menu-toggle">
               <button className="hamburger-icon" onClick={toggleMenu}></button>
             </div>
