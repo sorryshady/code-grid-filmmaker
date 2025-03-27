@@ -1,6 +1,6 @@
 import projects from "../../data/projects";
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Work.css";
 
 import { gsap } from "gsap";
@@ -15,6 +15,7 @@ const Work = () => {
   const descriptionTextRef = useRef(null);
   const titleTextRef = useRef(null);
   const imageRef = useRef(null);
+  const navigate = useNavigate();
 
   const animateCarouselInfo = (newProject) => {
     const tl = gsap.timeline();
@@ -43,11 +44,16 @@ const Work = () => {
           newDescriptionEl.className = "primary sm";
           newDescriptionEl.textContent = newProject.description;
 
-          const newLinkEl = document.createElement("a");
-          newLinkEl.href = "/sample-project";
+          const titleContainer = document.createElement("div");
+          titleContainer.className = "project-title-container";
+          titleContainer.style.cursor = "pointer";
+
           const newTitleEl = document.createElement("h1");
           newTitleEl.textContent = newProject.title;
-          newLinkEl.appendChild(newTitleEl);
+
+          titleContainer.onclick = () => navigate("/sample-project");
+
+          titleContainer.appendChild(newTitleEl);
 
           const newImageEl = document.createElement("img");
           newImageEl.src = newProject.image;
@@ -58,7 +64,7 @@ const Work = () => {
           gsap.set(newImageEl, { opacity: 0 });
 
           carouselDescriptionRef.current.appendChild(newDescriptionEl);
-          carouselTitleRef.current.appendChild(newLinkEl);
+          carouselTitleRef.current.appendChild(titleContainer);
           workSliderImgRef.current.appendChild(newImageEl);
 
           descriptionTextRef.current = newDescriptionEl;
@@ -98,10 +104,33 @@ const Work = () => {
     ) {
       descriptionTextRef.current =
         carouselDescriptionRef.current.querySelector("p");
-      titleTextRef.current = carouselTitleRef.current.querySelector("h1");
+
+      const initialTitleLink = carouselTitleRef.current.querySelector("a");
+      if (initialTitleLink) {
+        const initialTitle = initialTitleLink.querySelector("h1");
+
+        const titleContainer = document.createElement("div");
+        titleContainer.className = "project-title-container";
+        titleContainer.style.cursor = "pointer";
+
+        const newTitle = initialTitle.cloneNode(true);
+        titleContainer.appendChild(newTitle);
+
+        titleContainer.onclick = () => navigate("/sample-project");
+
+        initialTitleLink.parentNode.replaceChild(
+          titleContainer,
+          initialTitleLink
+        );
+
+        titleTextRef.current = newTitle;
+      } else {
+        titleTextRef.current = carouselTitleRef.current.querySelector("h1");
+      }
+
       imageRef.current = workSliderImgRef.current.querySelector("img");
     }
-  }, []);
+  }, [navigate]);
 
   const handleWorkItemClick = (project) => {
     if (project.id !== activeProject.id) {

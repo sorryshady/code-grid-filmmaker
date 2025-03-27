@@ -142,10 +142,10 @@ const Home = () => {
           </div>
 
           <div className="hero-header">
-            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.5}>
+            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
               Nico
             </AnimatedCopy>
-            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.6}>
+            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
               Palmer
             </AnimatedCopy>
           </div>

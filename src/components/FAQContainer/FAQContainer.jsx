@@ -1,4 +1,4 @@
-import { faqItems } from "./faqs.js";
+import { faqItems } from "../../data/faqs.js";
 import React, { useState, useRef, useEffect } from "react";
 import "./FAQContainer.css";
 import AnimatedCopy from "../AnimatedCopy/AnimatedCopy.jsx";
@@ -28,7 +28,7 @@ const FAQContainer = ({ title = true, fullWidth = false }) => {
         duration: 0.6,
         ease: "power2.out",
         stagger: 0.1,
-        delay: 0.25,
+        delay: 1.25,
       }
     );
   }, []);
@@ -78,7 +78,7 @@ const FAQContainer = ({ title = true, fullWidth = false }) => {
       <div className={`faq-wrapper ${fullWidth ? "full-width" : "contained"}`}>
         {title && (
           <div className="faq-title">
-            <AnimatedCopy tag="h2" animateOnScroll={false}>
+            <AnimatedCopy tag="h2" animateOnScroll={false} delay={1}>
               Frequently <br /> Asked Questions
             </AnimatedCopy>
           </div>

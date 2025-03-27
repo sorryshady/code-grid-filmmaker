@@ -148,6 +148,22 @@ textarea::placeholder {
   -webkit-font-smoothing: antialiased;
 }
 
+.btn {
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  width: max-content;
+  padding: 1em 2em;
+  font-family: "Messina Sans Mono";
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 0.4em;
+  background-color: var(--fg);
+  color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
 @media (max-width: 1000px) {
   h1 {
     font-size: 14vw;
