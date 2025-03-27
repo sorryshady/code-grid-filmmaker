@@ -19,9 +19,10 @@ const Menu = () => {
   const menuLinksAnimation = useRef();
   const menuBarAnimation = useRef();
 
-  // Refs for scroll behavior
   const lastScrollY = useRef(0);
   const menuBarRef = useRef();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const toggleMenu = () => {
     document.querySelector(".hamburger-icon").classList.toggle("active");
@@ -36,6 +37,17 @@ const Menu = () => {
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     gsap.set(".menu-link-item-holder", { y: 125 });
 
     menuAnimation.current = gsap.timeline({ paused: true }).to(".menu", {
@@ -44,11 +56,24 @@ const Menu = () => {
       ease: "power4.inOut",
     });
 
-    menuBarAnimation.current = gsap.timeline({ paused: true }).to(".menu-bar", {
-      duration: 1,
-      height: "calc(100% - 4em)",
-      ease: "power4.inOut",
-    });
+    const createMenuBarAnimation = () => {
+      if (menuBarAnimation.current) {
+        menuBarAnimation.current.kill();
+      }
+
+      const heightValue =
+        windowWidth < 1000 ? "calc(100% - 2.5em)" : "calc(100% - 4em)";
+
+      menuBarAnimation.current = gsap
+        .timeline({ paused: true })
+        .to(".menu-bar", {
+          duration: 1,
+          height: heightValue,
+          ease: "power4.inOut",
+        });
+    };
+
+    createMenuBarAnimation();
 
     menuLinksAnimation.current = gsap
       .timeline({ paused: true })
@@ -59,7 +84,7 @@ const Menu = () => {
         ease: "power3.inOut",
         delay: 0.125,
       });
-  }, []);
+  }, [windowWidth]);
 
   useEffect(() => {
     if (isMenuOpen) {
