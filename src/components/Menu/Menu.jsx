@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Menu.css";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 
 const Menu = () => {
@@ -13,6 +13,7 @@ const Menu = () => {
     { path: "/faq", label: "FAQ" },
   ];
 
+  const location = useLocation();
   const menuContainer = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuAnimation = useRef();
@@ -23,6 +24,8 @@ const Menu = () => {
   const menuBarRef = useRef();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [shouldDelayClose, setShouldDelayClose] = useState(false);
+  const previousPathRef = useRef(location.pathname);
 
   const toggleMenu = () => {
     document.querySelector(".hamburger-icon").classList.toggle("active");
@@ -35,6 +38,26 @@ const Menu = () => {
       setIsMenuOpen(false);
     } else return;
   };
+
+  const handleLinkClick = (path) => {
+    if (path !== location.pathname) {
+      setShouldDelayClose(true);
+    }
+  };
+
+  useEffect(() => {
+    if (location.pathname !== previousPathRef.current && shouldDelayClose) {
+      const timer = setTimeout(() => {
+        closeMenu();
+        setShouldDelayClose(false);
+      }, 700);
+
+      previousPathRef.current = location.pathname;
+      return () => clearTimeout(timer);
+    }
+
+    previousPathRef.current = location.pathname;
+  }, [location.pathname, shouldDelayClose]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -149,13 +172,13 @@ const Menu = () => {
           <div className="menu-sub-col">
             <div className="menu-links">
               {menuLinks.map((link, index) => (
-                <div
-                  key={index}
-                  className="menu-link-item"
-                  onClick={toggleMenu}
-                >
+                <div key={index} className="menu-link-item">
                   <div className="menu-link-item-holder">
-                    <Link className="menu-link" to={link.path}>
+                    <Link
+                      className="menu-link"
+                      to={link.path}
+                      onClick={() => handleLinkClick(link.path)}
+                    >
                       {link.label}
                     </Link>
                   </div>

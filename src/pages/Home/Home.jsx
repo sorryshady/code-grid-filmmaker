@@ -14,6 +14,8 @@ import ReactLenis from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+import Transition from "../../components/Transition/Transition";
+
 const Home = () => {
   const workItems = Array.isArray(workList) ? workList : [];
   const stickyTitlesRef = useRef(null);
@@ -229,4 +231,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Transition(Home);

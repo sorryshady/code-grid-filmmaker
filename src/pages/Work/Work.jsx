@@ -5,6 +5,8 @@ import "./Work.css";
 
 import { gsap } from "gsap";
 
+import Transition from "../../components/Transition/Transition";
+
 const Work = () => {
   const [activeProject, setActiveProject] = useState(projects[0]);
   const carouselDescriptionRef = useRef(null);
@@ -143,4 +145,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Transition(Work);

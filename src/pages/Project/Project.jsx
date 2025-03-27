@@ -6,6 +6,8 @@ import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
 
 import ReactLenis from "lenis/react";
 
+import Transition from "../../components/Transition/Transition";
+
 const Project = () => {
   return (
     <ReactLenis root>
@@ -182,4 +184,4 @@ const Project = () => {
   );
 };
 
-export default Project;
+export default Transition(Project);
