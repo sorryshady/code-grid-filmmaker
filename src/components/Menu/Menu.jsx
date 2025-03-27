@@ -26,16 +26,36 @@ const Menu = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [shouldDelayClose, setShouldDelayClose] = useState(false);
   const previousPathRef = useRef(location.pathname);
+  const scrollPositionRef = useRef(0);
+
+  const toggleBodyScroll = (disableScroll) => {
+    if (disableScroll) {
+      scrollPositionRef.current = window.pageYOffset;
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPositionRef.current}px`;
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.removeProperty("overflow");
+      document.body.style.removeProperty("position");
+      document.body.style.removeProperty("top");
+      document.body.style.removeProperty("width");
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  };
 
   const toggleMenu = () => {
     document.querySelector(".hamburger-icon").classList.toggle("active");
-    setIsMenuOpen(!isMenuOpen);
+    const newMenuState = !isMenuOpen;
+    setIsMenuOpen(newMenuState);
+    toggleBodyScroll(newMenuState);
   };
 
   const closeMenu = () => {
     if (isMenuOpen) {
       document.querySelector(".hamburger-icon").classList.toggle("active");
       setIsMenuOpen(false);
+      toggleBodyScroll(false);
     } else return;
   };
 
@@ -150,6 +170,14 @@ const Menu = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (document.body.style.position === "fixed") {
+        toggleBodyScroll(false);
+      }
+    };
+  }, []);
 
   return (
     <div className="menu-container" ref={menuContainer}>
